@@ -241,7 +241,7 @@ workflow BCFTOOLS {
 // Run process1 with our input channel parameter
  // EDIT HERE
         BCFTOOLS_VIEW(ch_input_file, ch_index_file)
-        CONVERT_VCF(BCFTOOLS_VIEW.out.filtered.vcf)
+        CONVERT_VCF(BCFTOOLS_VIEW.out.filtered_vcf)
 
 }
 
