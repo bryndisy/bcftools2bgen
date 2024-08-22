@@ -131,7 +131,7 @@ process BCFTOOLS_VIEW {
     """
     # Write your script of commands here
     echo "[INFO] Running the process!"
-    bcftools view |
+    bcftools view \
     -Oz --output filtered.vcf.gz \
     --regions $params.genomic_region \
     --threads ${params.large.cpus} \
