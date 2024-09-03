@@ -113,7 +113,7 @@ process OBTAIN_PIPELINE_METADATA {
 // EDIT HERE
 process BCFTOOLS_VIEW {
     label "process_large"
-    label "bcftools"
+    label "bcftools" \\defined in container config file (conf/containers/quay.config)
     echo true
     publishDir "${params.outdir}", mode: "copy"
 
@@ -123,7 +123,7 @@ process BCFTOOLS_VIEW {
 
 
     output:
-    path "filtered.vcf.gz", emit: filtered_vcf
+    path "filtered.vcf.gz", emit: filtered_vcf \\unique name given with emit, to be used in the next process (plink)
     path "*.tbi", emit: new_index
    
 
@@ -136,6 +136,8 @@ process BCFTOOLS_VIEW {
     --regions $params.genomic_region \
     --threads ${params.large.cpus} \
     $vcf_paths_file
+
+    bcftools index -t filtered.vcf.gz
     """
 }
 
@@ -155,13 +157,13 @@ process CONVERT_VCF {
     """
     echo "[INFO] Running the plink2 command!"
     plink2 --vcf $filtered_vcf \
---make-bed \
---out cohort_filtered \
--max-alleles 2 \
---export bgen-1.3 
+    --make-bed \
+    --out cohort_filtered \
+    -max-alleles 2 \
+    --export bgen-1.3 
     """
 }
-// TOO HERE
+// TO HERE
 
 // EDIT workflow name
 workflow BCFTOOLS {
@@ -207,6 +209,7 @@ workflow BCFTOOLS {
     // Define Channels from input
     // Edit channels, for multiple conditional channels use if and else statements
     // EDIT HERE
+    // Need to define the channels for which our input parameters are coming through with
     ch_input_file = Channel.fromPath("${params.input}")
     ch_index_file = Channel.fromPath("${params.input_index}")
     // TOO HERE
