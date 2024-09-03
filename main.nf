@@ -113,7 +113,7 @@ process OBTAIN_PIPELINE_METADATA {
 // EDIT HERE
 process BCFTOOLS_VIEW {
     label "process_large"
-    label "bcftools" \\defined in container config file (conf/containers/quay.config)
+    label "bcftools" // label bcftools defined in container config file (conf/containers/quay.config)
     echo true
     publishDir "${params.outdir}", mode: "copy"
 
@@ -123,7 +123,7 @@ process BCFTOOLS_VIEW {
 
 
     output:
-    path "filtered.vcf.gz", emit: filtered_vcf \\unique name given with emit, to be used in the next process (plink)
+    path "filtered.vcf.gz", emit: filtered_vcf  // unique name given with emit, to be used in the next process (plink)
     path "*.tbi", emit: new_index
    
 
