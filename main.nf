@@ -134,7 +134,7 @@ process BCFTOOLS_VIEW {
     bcftools view \
     -Oz --output filtered.vcf.gz \
     --regions $params.genomic_region \
-    --threads ${params.large.cpus} \
+    --threads ${params.large_cpus} \
     $vcf_paths_file
 
     bcftools index -t filtered.vcf.gz
